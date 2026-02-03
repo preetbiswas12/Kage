@@ -175,6 +175,14 @@ Do no turn it off unless you have some issues`,
 		`Redownload chapters that already exist`,
 	},
 	{
+		key.DownloaderMaxConcurrentPages,
+		10,
+		`Maximum number of pages to download concurrently.
+Lower values reduce memory usage and network strain for large chapters.
+Higher values speed up downloads but may cause issues with 500+ chapter batches.
+Recommended: 10-20 for stability, 50+ for speed on good connections`,
+	},
+	{
 		key.DownloaderDefaultSources,
 		[]string{},
 		`Default sources to use.
