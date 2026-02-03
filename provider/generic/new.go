@@ -34,7 +34,7 @@ func New(conf *Configuration) source.Source {
 		r.Headers.Set("Referer", "https://google.com")
 		r.Headers.Set("accept-language", "en-US")
 		r.Headers.Set("Accept", "text/html")
-		r.Headers.Set("Host", s.config.BaseURL)
+		// Don't manually set Host header - let colly/http handle it
 		r.Headers.Set("User-Agent", constant.UserAgent)
 	})
 
@@ -72,7 +72,7 @@ func New(conf *Configuration) source.Source {
 		r.Headers.Set("Referer", r.Ctx.GetAny("manga").(*source.Manga).URL)
 		r.Headers.Set("accept-language", "en-US")
 		r.Headers.Set("Accept", "text/html")
-		r.Headers.Set("Host", s.config.BaseURL)
+		// Don't manually set Host header - let colly/http handle it
 		r.Headers.Set("User-Agent", constant.UserAgent)
 	})
 
