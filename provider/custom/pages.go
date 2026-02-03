@@ -18,17 +18,17 @@ func (s *luaSource) PagesOf(chapter *source.Chapter) ([]*source.Page, error) {
 
 	table.ForEach(func(k lua.LValue, v lua.LValue) {
 		if k.Type() != lua.LTNumber {
-			s.state.RaiseError(constant.ChapterPagesFn + " was expected to return a table with numbers as keys, got " + k.Type().String() + " as a key")
+			s.state.RaiseError("%s was expected to return a table with numbers as keys, got %s as a key", constant.ChapterPagesFn, k.Type().String())
 		}
 
 		if v.Type() != lua.LTTable {
-			s.state.RaiseError(constant.ChapterPagesFn + " was expected to return a table with tables as values, got " + v.Type().String() + " as a value")
+			s.state.RaiseError("%s was expected to return a table with tables as values, got %s as a value", constant.ChapterPagesFn, v.Type().String())
 		}
 
 		page, err := pageFromTable(v.(*lua.LTable), chapter)
 
 		if err != nil {
-			s.state.RaiseError(err.Error())
+			s.state.RaiseError("%s", err.Error())
 		}
 
 		pages = append(pages, page)

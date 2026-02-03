@@ -634,8 +634,13 @@ func (b *statefulBubble) updateConfirm(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return b, tea.Quit
 		case key.Matches(msg, b.keymap.confirm):
 			chapters := lo.Keys(b.selectedChapters)
-			slices.SortFunc(chapters, func(a, b *source.Chapter) bool {
-				return a.Index > b.Index
+			slices.SortFunc(chapters, func(a, b *source.Chapter) int {
+				if a.Index > b.Index {
+					return -1
+				} else if a.Index < b.Index {
+					return 1
+				}
+				return 0
 			})
 
 			for _, chapter := range chapters {

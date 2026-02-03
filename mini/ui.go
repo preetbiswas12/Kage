@@ -29,9 +29,9 @@ func fail(t string) {
 
 func menu[T fmt.Stringer](items []T, options ...*bind) (*bind, T, error) {
 	styles := map[int]func(string) string{
-		0: style.New().Width(truncateAt).Foreground(color.Yellow).Render,
-		1: style.New().Width(truncateAt).Foreground(color.Cyan).Render,
-		2: style.New().Width(truncateAt).Foreground(color.Red).Render,
+		0: func(s string) string { return style.New().Width(truncateAt).Foreground(color.Yellow).Render(s) },
+		1: func(s string) string { return style.New().Width(truncateAt).Foreground(color.Cyan).Render(s) },
+		2: func(s string) string { return style.New().Width(truncateAt).Foreground(color.Red).Render(s) },
 	}
 
 	for i, item := range items {
