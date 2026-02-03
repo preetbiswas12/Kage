@@ -37,6 +37,7 @@ curl -sSL mangal.metafates.one/run | sh
 - [Configuration](#configuration)
 - [Custom scrapers](#custom-scrapers)
 - [Anilist](#anilist)
+- [Architecture](#architecture)
 - [Honorable mentions](#honorable-mentions)
 
 ## Features
@@ -289,6 +290,14 @@ Besides fetching metadata for each manga when downloading,
 mangal can also mark chapters as read on your Anilsit profile when you read them inside mangal.
 
 For more information see [wiki](https://github.com/metafates/mangal/wiki/Anilist-Integration)
+
+## Architecture
+
+Want to understand how Mangal connects to manga websites? See the [architecture documentation](docs/HOW_SERVER_CONNECTS.md) for details on:
+- HTTP client configuration and connection pooling
+- Web scraping framework (Colly)
+- Anti-detection measures
+- Provider system architecture
 
 ## Honorable mentions
 
