@@ -1,7 +1,7 @@
 package manganelo
 
 import (
-	"github.com/metafates/mangal/provider/generic"
+	"github.com/preetbiswas12/Kage/provider/generic"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )

@@ -1,4 +1,4 @@
-module github.com/metafates/mangal
+module github.com/preetbiswas12/Kage
 
 go 1.24.2
 

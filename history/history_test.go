@@ -2,8 +2,8 @@ package history
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/source"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/source"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )

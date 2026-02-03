@@ -2,11 +2,11 @@ package pdf
 
 import (
 	"bytes"
-	"github.com/metafates/mangal/config"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/source"
+	"github.com/preetbiswas12/Kage/config"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/source"
 	"github.com/samber/lo"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/spf13/viper"

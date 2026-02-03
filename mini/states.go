@@ -2,12 +2,12 @@ package mini
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/downloader"
-	"github.com/metafates/mangal/history"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/downloader"
+	"github.com/preetbiswas12/Kage/history"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"

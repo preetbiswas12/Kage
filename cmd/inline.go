@@ -5,15 +5,15 @@ import (
 	"errors"
 	"fmt"
 	"github.com/invopop/jsonschema"
-	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/converter"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/inline"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/query"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/update"
+	"github.com/preetbiswas12/Kage/anilist"
+	"github.com/preetbiswas12/Kage/converter"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/inline"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/query"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/update"
 	"github.com/samber/lo"
 	"github.com/samber/mo"
 	"github.com/spf13/cobra"
@@ -81,7 +81,7 @@ When using the json flag, manga selector can be omitted to select all mangas.`,
   # Download chapters 1-10 from first manga
   mangal inline -q "bleach" -m first -c 1-10 -d
 
-More examples: https://github.com/metafates/mangal/wiki/Inline-mode`,
+More examples: https://github.com/preetbiswas12/Kage/wiki/Inline-mode`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		json, _ := cmd.Flags().GetBool("json")
 

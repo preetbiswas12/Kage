@@ -18,9 +18,9 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -X 'github.com/metafates/mangal/constant.BuiltAt={{ .Date }}'
-      - -X 'github.com/metafates/mangal/constant.BuiltBy={{ .Env.USER }}'
-      - -X 'github.com/metafates/mangal/constant.Revision={{ .ShortCommit }}'
+      - -X 'github.com/preetbiswas12/Kage/constant.BuiltAt={{ .Date }}'
+      - -X 'github.com/preetbiswas12/Kage/constant.BuiltBy={{ .Env.USER }}'
+      - -X 'github.com/preetbiswas12/Kage/constant.Revision={{ .ShortCommit }}'
       - -s
       - -w
 
@@ -98,7 +98,7 @@ brews:
       email: bot@goreleaser.com
 
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
-    homepage: "https://github.com/metafates/mangal"
+    homepage: "https://github.com/preetbiswas12/Kage"
     description: "The ultimate CLI manga downloader!"
     license: "MIT"
     skip_upload: false
@@ -126,7 +126,7 @@ scoop:
     email: bot@goreleaser.com
 
   commit_msg_template: "Scoop update for {{ .ProjectName }} version {{ .Tag }}"
-  homepage: "https://github.com/metafates/mangal"
+  homepage: "https://github.com/preetbiswas12/Kage"
   description: "The ultimate CLI manga downloader!"
   license: MIT
   skip_upload: false
@@ -148,15 +148,15 @@ release:
 
   footer: |
 
-    **Full Changelog**: https://github.com/metafates/mangal/compare/{{ .PreviousTag }}...{{ .Tag }}
+    **Full Changelog**: https://github.com/preetbiswas12/Kage/compare/{{ .PreviousTag }}...{{ .Tag }}
 
     ---
 
-    Bugs? Suggestions? [Open an issue](https://github.com/metafates/mangal/issues/new/choose)
+    Bugs? Suggestions? [Open an issue](https://github.com/preetbiswas12/Kage/issues/new/choose)
 
 nfpms:
   - file_name_template: "{{ .ConventionalFileName }}"
-    homepage: https://github.com/metafates/mangal
+    homepage: https://github.com/preetbiswas12/Kage
     maintainer: metafates <fates@duck.com>
     description: |-
       The most advanced cli manga downloader in the entire universe!

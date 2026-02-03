@@ -1,7 +1,7 @@
 package anilist
 
 import (
-	"github.com/metafates/mangal/key"
+	"github.com/preetbiswas12/Kage/key"
 	"github.com/spf13/viper"
 )
 

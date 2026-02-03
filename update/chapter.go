@@ -1,9 +1,9 @@
 package update
 
 import (
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/log"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/log"
 	"os"
 	"path/filepath"
 )

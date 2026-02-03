@@ -3,11 +3,11 @@ package cmd
 import (
 	"fmt"
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/metafates/mangal/icon"
-	"github.com/metafates/mangal/integration/anilist"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/open"
+	"github.com/preetbiswas12/Kage/icon"
+	"github.com/preetbiswas12/Kage/integration/anilist"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/log"
+	"github.com/preetbiswas12/Kage/open"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -37,7 +37,7 @@ Anilist integration enables automatic progress tracking, metadata fetching,
 and synchronization of your reading list with your Anilist account.
 
 For detailed setup instructions, visit:
-https://github.com/metafates/mangal/wiki/Anilist-Integration`,
+https://github.com/preetbiswas12/Kage/wiki/Anilist-Integration`,
 	Example: `  # Set up Anilist integration
   mangal integration anilist
 

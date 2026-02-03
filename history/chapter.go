@@ -2,7 +2,7 @@ package history
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/source"
+	"github.com/preetbiswas12/Kage/source"
 )
 
 type SavedChapter struct {

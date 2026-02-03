@@ -2,7 +2,7 @@ package style
 
 import (
 	"github.com/charmbracelet/lipgloss"
-	"github.com/metafates/mangal/color"
+	"github.com/preetbiswas12/Kage/color"
 )
 
 var (

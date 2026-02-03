@@ -4,19 +4,19 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/metafates/mangal/color"
+	"github.com/preetbiswas12/Kage/color"
 	"os"
 	"path/filepath"
 	"sort"
 	"strconv"
 
 	levenshtein "github.com/ka-weihe/fast-levenshtein"
-	"github.com/metafates/mangal/config"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/icon"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/where"
+	"github.com/preetbiswas12/Kage/config"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/icon"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/where"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -46,7 +46,7 @@ func init() {
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Manage configuration settings",
-	Long:  `View, modify, and reset ` + constant.Mangal + ` configuration options. Use subcommands to get info, set values, or write config to file.`,
+	Long:  `View, modify, and reset ` + constant.Kage + ` configuration options. Use subcommands to get info, set values, or write config to file.`,
 }
 
 func init() {
@@ -204,7 +204,7 @@ var configWriteCmd = &cobra.Command{
 			force          = lo.Must(cmd.Flags().GetBool("force"))
 			configFilePath = filepath.Join(
 				where.Config(),
-				fmt.Sprintf("%s.%s", constant.Mangal, "toml"),
+				fmt.Sprintf("%s.%s", constant.Kage, "toml"),
 			)
 		)
 
@@ -239,7 +239,7 @@ var configDeleteCmd = &cobra.Command{
 			Remove(
 				filepath.Join(
 					where.Config(),
-					fmt.Sprintf("%s.%s", constant.Mangal, "toml"),
+					fmt.Sprintf("%s.%s", constant.Kage, "toml"),
 				),
 			)
 

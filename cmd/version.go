@@ -1,16 +1,16 @@
 package cmd
 
 import (
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/version"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/version"
 	"github.com/samber/lo"
 	"os"
 	"runtime"
 	"strings"
 	"text/template"
 
-	"github.com/metafates/mangal/constant"
+	"github.com/preetbiswas12/Kage/constant"
 	"github.com/spf13/cobra"
 )
 
@@ -50,7 +50,7 @@ and checks for available updates.`,
 			App      string
 		}{
 			Version:  constant.Version,
-			App:      constant.Mangal,
+			App:      constant.Kage,
 			OS:       runtime.GOOS,
 			Arch:     runtime.GOARCH,
 			BuiltAt:  strings.TrimSpace(constant.BuiltAt),

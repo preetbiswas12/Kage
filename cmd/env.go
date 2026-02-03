@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/config"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/where"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/config"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/where"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/slices"
@@ -45,7 +45,7 @@ in containerized environments or CI/CD pipelines.`,
 		slices.Sort(config.EnvExposed)
 		for _, env := range config.EnvExposed {
 			if env != where.EnvConfigPath {
-				env = strings.ToUpper(constant.Mangal + "_" + config.EnvKeyReplacer.Replace(env))
+				env = strings.ToUpper(constant.Kage + "_" + config.EnvKeyReplacer.Replace(env))
 			}
 			value := os.Getenv(env)
 			present := value != ""

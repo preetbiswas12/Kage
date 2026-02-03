@@ -1,9 +1,9 @@
 package where
 
 import (
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/key"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/key"
 	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"os"
@@ -27,7 +27,7 @@ func Config() string {
 	if customDir, present := os.LookupEnv(EnvConfigPath); present {
 		path = customDir
 	} else {
-		path = filepath.Join(lo.Must(os.UserConfigDir()), constant.Mangal)
+		path = filepath.Join(lo.Must(os.UserConfigDir()), constant.Kage)
 	}
 
 	return mkdir(path)
@@ -84,13 +84,13 @@ func Cache() string {
 		cacheDir = filepath.Join(".", "cache")
 	}
 
-	cacheDir = filepath.Join(cacheDir, constant.Mangal)
+	cacheDir = filepath.Join(cacheDir, constant.Kage)
 	return mkdir(cacheDir)
 }
 
 // Temp path
 // Will create the directory if it doesn't exist
 func Temp() string {
-	tempDir := filepath.Join(os.TempDir(), constant.Mangal)
+	tempDir := filepath.Join(os.TempDir(), constant.Kage)
 	return mkdir(tempDir)
 }

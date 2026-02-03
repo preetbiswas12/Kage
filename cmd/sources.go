@@ -2,11 +2,11 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/tui"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/tui"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/spf13/viper"
 	"os"
 	"os/user"
@@ -14,11 +14,11 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/icon"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/where"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/icon"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/where"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 )
@@ -133,7 +133,7 @@ var sourcesInstallCmd = &cobra.Command{
 	Use:   "install",
 	Short: "Browse and install custom scrapers",
 	Long: `Browse and install custom scrapers from official GitHub repo.
-https://github.com/metafates/mangal-scrapers`,
+https://github.com/preetbiswas12/Kage-scrapers`,
 	Run: func(cmd *cobra.Command, args []string) {
 		handleErr(tui.Run(&tui.Options{Install: true}))
 	},
