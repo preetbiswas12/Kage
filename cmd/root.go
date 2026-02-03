@@ -73,9 +73,11 @@ func init() {
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   constant.Mangal,
-	Short: "The ultimate manga downloader",
+	Short: "The most advanced manga downloader",
 	Long: constant.AsciiArtLogo + "\n" +
-		style.New().Italic(true).Foreground(color.HiRed).Render("    - The ultimate cli manga downloader"),
+		style.New().Italic(true).Foreground(color.HiRed).Render("    - The most advanced CLI manga downloader\n\n") +
+		style.Faint("Search, download, and read manga from your terminal.\n") +
+		style.Faint("Supports multiple sources, formats, and Anilist integration."),
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if _, err := converter.Get(viper.GetString(key.FormatsUse)); err != nil {
 			handleErr(err)

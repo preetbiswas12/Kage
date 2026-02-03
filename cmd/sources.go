@@ -29,7 +29,8 @@ func init() {
 
 var sourcesCmd = &cobra.Command{
 	Use:   "sources",
-	Short: "Manage sources",
+	Short: "Manage manga sources",
+	Long:  `Install, remove, generate and list manga sources (scrapers) for downloading manga from various websites.`,
 }
 
 func init() {
@@ -45,7 +46,8 @@ func init() {
 
 var sourcesListCmd = &cobra.Command{
 	Use:   "list",
-	Short: "List an available sources",
+	Short: "List all available manga sources",
+	Long:  `Display all built-in and custom manga sources that can be used to search and download manga.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		printHeader := !lo.Must(cmd.Flags().GetBool("raw"))
 		headerStyle := style.New().Foreground(color.HiBlue).Bold(true).Render
@@ -107,7 +109,13 @@ func init() {
 
 var sourcesRemoveCmd = &cobra.Command{
 	Use:   "remove",
-	Short: "Remove a custom source",
+	Short: "Remove custom manga sources",
+	Long:  `Remove one or more custom manga sources (scrapers) from your installation.`,
+	Example: `  # Remove a single source
+  mangal sources remove -n mangakakalot
+
+  # Remove multiple sources
+  mangal sources remove -n source1 -n source2`,
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, name := range lo.Must(cmd.Flags().GetStringArray("name")) {
 			path := filepath.Join(where.Sources(), name+provider.CustomProviderExtension)
@@ -143,8 +151,17 @@ func init() {
 
 var sourcesGenCmd = &cobra.Command{
 	Use:   "gen",
-	Short: "Generate a new lua source",
-	Long:  `Generate a new lua source.`,
+	Short: "Generate a new Lua scraper template",
+	Long: `Generate a template for creating a custom manga scraper in Lua.
+
+This command creates a new Lua file with boilerplate code and comments
+to help you build your own manga source scraper. The generated template
+includes function stubs for searching, listing chapters, and fetching pages.`,
+	Example: `  # Generate a scraper for a specific site
+  mangal sources gen -n "My Site" -u https://example.com
+
+  # The generated file will be saved to your sources directory
+  mangal sources gen -n mangasite -u https://mangasite.com`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.SetOut(os.Stdout)
 

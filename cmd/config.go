@@ -45,7 +45,8 @@ func init() {
 
 var configCmd = &cobra.Command{
 	Use:   "config",
-	Short: "Various config commands",
+	Short: "Manage configuration settings",
+	Long:  `View, modify, and reset ` + constant.Mangal + ` configuration options. Use subcommands to get info, set values, or write config to file.`,
 }
 
 func init() {
@@ -59,7 +60,8 @@ func init() {
 
 var configInfoCmd = &cobra.Command{
 	Use:   "info",
-	Short: "Show the info for each config field with description",
+	Short: "Show information about configuration fields",
+	Long:  `Display detailed information about each configuration field including its key, type, default value, and description.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			keys   = lo.Must(cmd.Flags().GetStringSlice("key"))

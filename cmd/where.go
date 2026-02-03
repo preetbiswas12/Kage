@@ -55,7 +55,8 @@ func init() {
 
 var whereCmd = &cobra.Command{
 	Use:   "where",
-	Short: "Show the paths for a files related to the " + constant.Mangal,
+	Short: "Show paths to " + constant.Mangal + " directories and files",
+	Long:  `Display the location of configuration, downloads, cache, sources, logs, and other ` + constant.Mangal + ` related files and directories.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		headerStyle := style.New().Bold(true).Foreground(color.HiPurple).Render
 

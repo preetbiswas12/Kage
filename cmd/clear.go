@@ -40,7 +40,8 @@ func init() {
 
 var clearCmd = &cobra.Command{
 	Use:   "clear",
-	Short: "Clears a sidelined files",
+	Short: "Clear cached files and data",
+	Long:  `Remove cached data, history, and other temporary files to free up space or reset state.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var anyCleared bool
 

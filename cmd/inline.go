@@ -51,8 +51,11 @@ func init() {
 
 var inlineCmd = &cobra.Command{
 	Use:   "inline",
-	Short: "Launch in the inline mode",
-	Long: `Launch in the inline mode for scripting
+	Short: "Run in inline mode for scripting",
+	Long: `Launch in inline mode for scripting and automation.
+
+This mode allows you to search, select, and download manga programmatically
+using command-line arguments, making it perfect for scripts and integrations.
 
 Manga selectors:
   first - first manga in the list
@@ -67,9 +70,18 @@ Chapter selectors:
   [from]-[to] - select chapters by range
   @[substring]@ - select chapters by name substring
 
-When using the json flag manga selector could be omitted. That way, it will select all mangas`,
+When using the json flag, manga selector can be omitted to select all mangas.`,
 
-	Example: "https://github.com/metafates/mangal/wiki/Inline-mode",
+	Example: `  # Search and download first manga's first chapter
+  mangal inline -q "one piece" -m first -c first -d
+
+  # Get JSON output for all search results
+  mangal inline -q "naruto" -j
+
+  # Download chapters 1-10 from first manga
+  mangal inline -q "bleach" -m first -c 1-10 -d
+
+More examples: https://github.com/metafates/mangal/wiki/Inline-mode`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		json, _ := cmd.Flags().GetBool("json")
 
@@ -156,7 +168,8 @@ func init() {
 
 var inlineAnilistCmd = &cobra.Command{
 	Use:   "anilist",
-	Short: "Anilist related commands",
+	Short: "Manage Anilist manga integration",
+	Long:  `Search, bind, and manage manga metadata from Anilist for better organization and tracking.`,
 }
 
 func init() {
@@ -170,7 +183,8 @@ func init() {
 
 var inlineAnilistSearchCmd = &cobra.Command{
 	Use:   "search",
-	Short: "Search anilist manga by name",
+	Short: "Search for manga on Anilist",
+	Long:  `Search Anilist for manga by name or retrieve specific manga by ID. Returns results in JSON format.`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if !cmd.Flags().Changed("name") && !cmd.Flags().Changed("id") {
 			handleErr(errors.New("name or id flag is required"))
@@ -205,7 +219,8 @@ func init() {
 
 var inlineAnilistGetCmd = &cobra.Command{
 	Use:   "get",
-	Short: "Get anilist manga that is bind to manga name",
+	Short: "Get Anilist binding for a manga",
+	Long:  `Retrieve the Anilist manga that is bound to a local manga name. Returns the binding in JSON format.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			m   *anilist.Manga
@@ -238,7 +253,8 @@ func init() {
 
 var inlineAnilistBindCmd = &cobra.Command{
 	Use:   "set",
-	Short: "Bind manga name to the anilist manga by id",
+	Short: "Bind a manga to an Anilist entry",
+	Long:  `Create a binding between a local manga name and an Anilist manga ID for metadata enrichment and tracking.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		anilistManga, err := anilist.GetByID(lo.Must(cmd.Flags().GetInt("id")))
 		handleErr(err)
@@ -258,7 +274,8 @@ func init() {
 
 var inlineAnilistUpdateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "Update old manga metadata according to the current anilist bind",
+	Short: "Update manga metadata from Anilist",
+	Long:  `Refresh manga metadata according to its current Anilist binding. Updates cover art, description, and other information.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		path := lo.Must(cmd.Flags().GetString("path"))
 		handleErr(update.Metadata(path))
@@ -273,7 +290,8 @@ func init() {
 
 var inlineSchemaCmd = &cobra.Command{
 	Use:   "schema",
-	Short: "Schemas for the inline json outputs",
+	Short: "Generate JSON schemas for inline mode output",
+	Long:  `Generate JSON schemas that describe the structure of inline mode JSON outputs. Useful for validation and IDE support.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		reflector := new(jsonschema.Reflector)
 		reflector.Anonymous = true

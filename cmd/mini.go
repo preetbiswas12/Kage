@@ -20,9 +20,20 @@ func init() {
 
 var miniCmd = &cobra.Command{
 	Use:   "mini",
-	Short: "Launch in the mini mode",
-	Long: `Launch mangal in the mini mode.
-Will try to mimic ani-cli.`,
+	Short: "Launch in mini mode",
+	Long: `Launch mangal in mini mode with a simplified, interactive interface.
+
+Mini mode provides a streamlined experience similar to ani-cli,
+with quick keyboard-based navigation and minimal visual clutter.
+Perfect for terminal enthusiasts who prefer speed and efficiency.`,
+	Example: `  # Launch mini mode
+  mangal mini
+
+  # Launch in download mode
+  mangal mini -d
+
+  # Continue reading from history
+  mangal mini -c`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if _, err := converter.Get(viper.GetString(key.FormatsUse)); err != nil {
 			handleErr(err)

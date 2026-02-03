@@ -23,8 +23,20 @@ func init() {
 
 var envCmd = &cobra.Command{
 	Use:   "env",
-	Short: "Show available environment variables",
-	Long:  `Show available environment variables.`,
+	Short: "List available environment variables",
+	Long: `Display all environment variables that can be used to configure mangal.
+
+Environment variables provide an alternative way to configure mangal
+without modifying the configuration file. They are especially useful
+in containerized environments or CI/CD pipelines.`,
+	Example: `  # Show all available environment variables
+  mangal env
+
+  # Show only variables that are currently set
+  mangal env --set-only
+
+  # Show only unset variables
+  mangal env --unset-only`,
 	Run: func(cmd *cobra.Command, args []string) {
 		setOnly := lo.Must(cmd.Flags().GetBool("set-only"))
 		unsetOnly := lo.Must(cmd.Flags().GetBool("unset-only"))

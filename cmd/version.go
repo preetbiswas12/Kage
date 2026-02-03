@@ -22,8 +22,16 @@ func init() {
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version number of mangal",
-	Long:  `All software has versions. This is mangal's`,
+	Short: "Display version information",
+	Long: `Display detailed version information including build details.
+
+Shows the current version, git commit, build date, platform,
+and checks for available updates.`,
+	Example: `  # Show full version information
+  mangal version
+
+  # Show only version number
+  mangal version --short`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if lo.Must(cmd.Flags().GetBool("short")) {
 			cmd.Println(constant.Version)

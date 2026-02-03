@@ -21,15 +21,28 @@ func init() {
 
 var integrationCmd = &cobra.Command{
 	Use:   "integration",
-	Short: "Integration with other services",
-	Long:  `Integration with other services`,
+	Short: "Manage third-party service integrations",
+	Long: `Configure and manage integrations with external services like Anilist.
+
+Integrations allow mangal to sync your reading progress, fetch metadata,
+and provide enhanced features through connection with online services.`,
 }
 
 var integrationAnilistCmd = &cobra.Command{
 	Use:   "anilist",
-	Short: "Integration with Anilist",
-	Long: `Integration with Anilist.
-See https://github.com/metafates/mangal/wiki/Anilist-Integration for more information`,
+	Short: "Configure Anilist integration",
+	Long: `Set up integration with Anilist for manga tracking and metadata.
+
+Anilist integration enables automatic progress tracking, metadata fetching,
+and synchronization of your reading list with your Anilist account.
+
+For detailed setup instructions, visit:
+https://github.com/metafates/mangal/wiki/Anilist-Integration`,
+	Example: `  # Set up Anilist integration
+  mangal integration anilist
+
+  # Disable Anilist integration
+  mangal integration anilist --disable`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if lo.Must(cmd.Flags().GetBool("disable")) {
 			viper.Set(key.AnilistEnable, false)
