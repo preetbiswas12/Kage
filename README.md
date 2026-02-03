@@ -37,6 +37,7 @@ curl -sSL mangal.metafates.one/run | sh
 - [Configuration](#configuration)
 - [Custom scrapers](#custom-scrapers)
 - [Anilist](#anilist)
+- [Architecture](#architecture)
 - [Honorable mentions](#honorable-mentions)
 
 ## Features
@@ -289,6 +290,26 @@ Besides fetching metadata for each manga when downloading,
 mangal can also mark chapters as read on your Anilsit profile when you read them inside mangal.
 
 For more information see [wiki](https://github.com/metafates/mangal/wiki/Anilist-Integration)
+
+## Architecture
+
+### How does Mangal connect to manga websites?
+
+Mangal uses a sophisticated multi-layered architecture to connect to manga websites:
+
+- **HTTP Client Layer**: Optimized HTTP client with connection pooling, configured for high concurrency (up to 200 connections per host)
+- **Provider System**: Supports both built-in (Go) and custom (Lua) providers for flexibility
+- **Web Scraping**: Uses Colly framework with intelligent caching and rate limiting
+- **API Integration**: MangaDex uses official API for more reliable access
+
+For a detailed explanation of the connection architecture, see [CONNECTION_ARCHITECTURE.md](docs/CONNECTION_ARCHITECTURE.md).
+
+**Key Features:**
+- Connection pooling and reuse for efficient resource usage
+- Smart caching to reduce repeated requests
+- Configurable rate limiting to respect server resources
+- Custom headers and referers for proper request handling
+- Support for both HTML scraping and API-based sources
 
 ## Honorable mentions
 
