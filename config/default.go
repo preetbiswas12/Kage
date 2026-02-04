@@ -3,10 +3,10 @@ package config
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/style"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/style"
 	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"reflect"
@@ -101,7 +101,7 @@ func (f *Field) Pretty() string {
 
 func (f *Field) Env() string {
 	env := strings.ToUpper(EnvKeyReplacer.Replace(f.Key))
-	appPrefix := strings.ToUpper(constant.Mangal + "_")
+	appPrefix := strings.ToUpper(constant.Kage + "_")
 
 	if strings.HasPrefix(env, appPrefix) {
 		return env
@@ -173,6 +173,14 @@ Do no turn it off unless you have some issues`,
 		key.DownloaderRedownloadExisting,
 		false,
 		`Redownload chapters that already exist`,
+	},
+	{
+		key.DownloaderMaxConcurrentPages,
+		10,
+		`Maximum number of pages to download concurrently.
+Lower values reduce memory usage and network strain for large chapters.
+Higher values speed up downloads but may cause issues with 500+ chapter batches.
+Recommended: 10-20 for stability, 50+ for speed on good connections`,
 	},
 	{
 		key.DownloaderDefaultSources,

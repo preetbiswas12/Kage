@@ -2,12 +2,12 @@ package mini
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/downloader"
-	"github.com/metafates/mangal/history"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/downloader"
+	"github.com/preetbiswas12/Kage/history"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"
@@ -47,8 +47,8 @@ func (m *mini) handleSourceSelectState() error {
 		providers = append(providers, provider.Builtins()...)
 		providers = append(providers, provider.Customs()...)
 
-		slices.SortFunc(providers, func(a *provider.Provider, b *provider.Provider) bool {
-			return strings.Compare(a.String(), b.String()) < 0
+		slices.SortFunc(providers, func(a *provider.Provider, b *provider.Provider) int {
+			return strings.Compare(a.String(), b.String())
 		})
 
 		title("Select Source")

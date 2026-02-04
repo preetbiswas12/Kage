@@ -1,16 +1,16 @@
 package cmd
 
 import (
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/version"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/version"
 	"github.com/samber/lo"
 	"os"
 	"runtime"
 	"strings"
 	"text/template"
 
-	"github.com/metafates/mangal/constant"
+	"github.com/preetbiswas12/Kage/constant"
 	"github.com/spf13/cobra"
 )
 
@@ -22,8 +22,16 @@ func init() {
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version number of mangal",
-	Long:  `All software has versions. This is mangal's`,
+	Short: "Display version information",
+	Long: `Display detailed version information including build details.
+
+Shows the current version, git commit, build date, platform,
+and checks for available updates.`,
+	Example: `  # Show full version information
+  mangal version
+
+  # Show only version number
+  mangal version --short`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if lo.Must(cmd.Flags().GetBool("short")) {
 			cmd.Println(constant.Version)
@@ -42,7 +50,7 @@ var versionCmd = &cobra.Command{
 			App      string
 		}{
 			Version:  constant.Version,
-			App:      constant.Mangal,
+			App:      constant.Kage,
 			OS:       runtime.GOOS,
 			Arch:     runtime.GOARCH,
 			BuiltAt:  strings.TrimSpace(constant.BuiltAt),

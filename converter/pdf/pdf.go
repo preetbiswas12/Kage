@@ -1,10 +1,10 @@
 package pdf
 
 import (
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 	"github.com/pdfcpu/pdfcpu/pkg/log"
 	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu"

@@ -2,7 +2,7 @@ package query
 
 import (
 	"github.com/lithammer/fuzzysearch/fuzzy"
-	"github.com/metafates/mangal/key"
+	"github.com/preetbiswas12/Kage/key"
 	"github.com/samber/lo"
 	"github.com/samber/mo"
 	"github.com/spf13/viper"
@@ -36,8 +36,13 @@ func SuggestMany(query string) []string {
 			}
 		}
 
-		slices.SortFunc(records, func(a, b *queryRecord) bool {
-			return a.Rank > b.Rank
+		slices.SortFunc(records, func(a, b *queryRecord) int {
+			if a.Rank > b.Rank {
+				return -1
+			} else if a.Rank < b.Rank {
+				return 1
+			}
+			return 0
 		})
 
 		suggestionCache[query] = records

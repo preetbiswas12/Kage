@@ -2,7 +2,7 @@ package custom
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/source"
+	"github.com/preetbiswas12/Kage/source"
 	lua "github.com/yuin/gopher-lua"
 )
 
@@ -49,7 +49,7 @@ func (s *luaSource) call(fn string, ret lua.LValueType, args ...lua.LValue) (lua
 	val := s.state.Get(-1)
 
 	if val.Type() != ret {
-		s.state.RaiseError(fn + " was expected to return a " + ret.String() + ", got " + val.Type().String())
+		s.state.RaiseError("%s was expected to return a %s, got %s", fn, ret.String(), val.Type().String())
 	}
 
 	return val, nil

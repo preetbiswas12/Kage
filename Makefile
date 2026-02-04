@@ -1,8 +1,8 @@
 MAKEFLAGS += --silent
 
-ldflags := -X 'github.com/metafates/mangal/constant.BuiltAt=$(shell date -u)'
-ldflags += -X 'github.com/metafates/mangal/constant.BuiltBy=$(shell whoami)'
-ldflags += -X 'github.com/metafates/mangal/constant.Revision=$(shell git rev-parse --short HEAD)'
+ldflags := -X 'github.com/preetbiswas12/Kage/constant.BuiltAt=$(shell date -u)'
+ldflags += -X 'github.com/preetbiswas12/Kage/constant.BuiltBy=$(shell whoami)'
+ldflags += -X 'github.com/preetbiswas12/Kage/constant.Revision=$(shell git rev-parse --short HEAD)'
 ldflags += -s
 ldflags += -w
 
@@ -14,9 +14,9 @@ help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
-	@echo "  build        Build the mangal binary"
-	@echo "  install      Install the mangal binary"
-	@echo "  uninstall    Uninstall the mangal binary"
+	@echo "  build        Build the kage binary"
+	@echo "  install      Install the kage binary"
+	@echo "  uninstall    Uninstall the kage binary"
 	@echo "  test         Run the tests"
 	@echo "  gif          Generate usage gifs"
 	@echo "  help         Show this help message"
@@ -33,7 +33,7 @@ test:
 	@go test ./...
 
 uninstall:
-	@rm -f $(shell which mangal)
+	@rm -f $(shell which kage)
 
 gif:
 	@vhs assets/tui.tape

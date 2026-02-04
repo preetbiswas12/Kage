@@ -2,13 +2,13 @@ package tui
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/history"
-	"github.com/metafates/mangal/icon"
-	"github.com/metafates/mangal/installer"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/style"
+	"github.com/preetbiswas12/Kage/anilist"
+	"github.com/preetbiswas12/Kage/history"
+	"github.com/preetbiswas12/Kage/icon"
+	"github.com/preetbiswas12/Kage/installer"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/style"
 	"strings"
 )
 

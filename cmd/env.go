@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/config"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/where"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/config"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/where"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/slices"
@@ -23,8 +23,20 @@ func init() {
 
 var envCmd = &cobra.Command{
 	Use:   "env",
-	Short: "Show available environment variables",
-	Long:  `Show available environment variables.`,
+	Short: "List available environment variables",
+	Long: `Display all environment variables that can be used to configure mangal.
+
+Environment variables provide an alternative way to configure mangal
+without modifying the configuration file. They are especially useful
+in containerized environments or CI/CD pipelines.`,
+	Example: `  # Show all available environment variables
+  mangal env
+
+  # Show only variables that are currently set
+  mangal env --set-only
+
+  # Show only unset variables
+  mangal env --unset-only`,
 	Run: func(cmd *cobra.Command, args []string) {
 		setOnly := lo.Must(cmd.Flags().GetBool("set-only"))
 		unsetOnly := lo.Must(cmd.Flags().GetBool("unset-only"))
@@ -33,7 +45,7 @@ var envCmd = &cobra.Command{
 		slices.Sort(config.EnvExposed)
 		for _, env := range config.EnvExposed {
 			if env != where.EnvConfigPath {
-				env = strings.ToUpper(constant.Mangal + "_" + config.EnvKeyReplacer.Replace(env))
+				env = strings.ToUpper(constant.Kage + "_" + config.EnvKeyReplacer.Replace(env))
 			}
 			value := os.Getenv(env)
 			present := value != ""

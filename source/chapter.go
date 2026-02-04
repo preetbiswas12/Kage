@@ -3,11 +3,11 @@ package source
 import (
 	"fmt"
 	"github.com/dustin/go-humanize"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/samber/mo"
 	"github.com/spf13/viper"
 	"os"
@@ -58,6 +58,13 @@ func (c *Chapter) DownloadPages(temp bool, progress func(string)) (err error) {
 	wg := sync.WaitGroup{}
 	wg.Add(len(c.Pages))
 
+	// Use a semaphore to limit concurrent downloads
+	maxConcurrent := viper.GetInt(key.DownloaderMaxConcurrentPages)
+	if maxConcurrent <= 0 {
+		maxConcurrent = 10 // Default fallback
+	}
+	semaphore := make(chan struct{}, maxConcurrent)
+
 	for _, page := range c.Pages {
 		if page == nil {
 			return fmt.Errorf("page #%d is empty, aborting download", page.Index)
@@ -71,9 +78,31 @@ func (c *Chapter) DownloadPages(temp bool, progress func(string)) (err error) {
 				return
 			}
 
-			err = page.Download()
-			c.size += page.Size
-			progress(status())
+			// Acquire semaphore
+			semaphore <- struct{}{}
+			defer func() { <-semaphore }() // Release semaphore
+
+			// Retry logic for page downloads
+			const maxRetries = 3
+			var downloadErr error
+			for retry := 0; retry <= maxRetries; retry++ {
+				downloadErr = page.Download()
+				if downloadErr == nil {
+					c.size += page.Size
+					progress(status())
+					return
+				}
+				
+				// If this was the last retry, set the error
+				if retry == maxRetries {
+					err = fmt.Errorf("failed to download page #%d after %d retries: %w", page.Index, maxRetries, downloadErr)
+					return
+				}
+				
+				// Exponential backoff: wait 2^retry seconds before retrying
+				waitTime := time.Duration(1<<uint(retry)) * time.Second
+				time.Sleep(waitTime)
+			}
 		}
 
 		if viper.GetBool(key.DownloaderAsync) {
@@ -213,7 +242,7 @@ func (c *Chapter) ComicInfo() *ComicInfo {
 		Letterer:   strings.Join(c.Manga.Metadata.Staff.Lettering, ","),
 		Translator: strings.Join(c.Manga.Metadata.Staff.Translation, ","),
 		Tags:       strings.Join(c.Manga.Metadata.Tags, ","),
-		Notes:      "Downloaded with Mangal. https://github.com/metafates/mangal",
+		Notes:      "Downloaded with Mangal. https://github.com/preetbiswas12/Kage",
 		Manga:      "YesAndRightToLeft",
 	}
 }

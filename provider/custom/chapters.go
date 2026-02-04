@@ -1,8 +1,8 @@
 package custom
 
 import (
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/source"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/source"
 	lua "github.com/yuin/gopher-lua"
 	"strconv"
 )
@@ -28,22 +28,22 @@ func (s *luaSource) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 	table.ForEach(func(k lua.LValue, v lua.LValue) {
 		if k.Type() != lua.LTNumber {
-			s.state.RaiseError(constant.MangaChaptersFn + " was expected to return a table with numbers as keys, got " + k.Type().String() + " as a key")
+			s.state.RaiseError("%s was expected to return a table with numbers as keys, got %s as a key", constant.MangaChaptersFn, k.Type().String())
 		}
 
 		if v.Type() != lua.LTTable {
-			s.state.RaiseError(constant.MangaChaptersFn + " was expected to return a table with tables as values, got " + v.Type().String() + " as a value")
+			s.state.RaiseError("%s was expected to return a table with tables as values, got %s as a value", constant.MangaChaptersFn, v.Type().String())
 		}
 
 		index, err := strconv.ParseUint(k.String(), 10, 16)
 		if err != nil {
-			s.state.RaiseError(constant.MangaChaptersFn + " was expected to return a table with unsigned integers as keys. " + err.Error())
+			s.state.RaiseError("%s was expected to return a table with unsigned integers as keys. %s", constant.MangaChaptersFn, err.Error())
 		}
 
 		chapter, err := chapterFromTable(v.(*lua.LTable), manga, uint16(index))
 
 		if err != nil {
-			s.state.RaiseError(err.Error())
+			s.state.RaiseError("%s", err.Error())
 		}
 
 		chapters = append(chapters, chapter)

@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/downloader"
-	"github.com/metafates/mangal/installer"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/anilist"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/downloader"
+	"github.com/preetbiswas12/Kage/installer"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/log"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"
 	"strings"
@@ -31,8 +31,8 @@ func (b *statefulBubble) loadScrapers() tea.Cmd {
 		}
 		b.progressStatus = "Scrapers Loaded"
 
-		slices.SortFunc(scrapers, func(a, b *installer.Scraper) bool {
-			return strings.Compare(a.Name, b.Name) < 0
+		slices.SortFunc(scrapers, func(a, b *installer.Scraper) int {
+			return strings.Compare(a.Name, b.Name)
 		})
 
 		var items = make([]list.Item, len(scrapers))

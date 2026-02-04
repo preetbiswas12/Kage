@@ -6,17 +6,17 @@ import (
 	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/bubbles/progress"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/history"
-	"github.com/metafates/mangal/installer"
-	key2 "github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/open"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/query"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/anilist"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/history"
+	"github.com/preetbiswas12/Kage/installer"
+	key2 "github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/open"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/query"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/samber/lo"
 	"github.com/samber/mo"
 	"github.com/spf13/viper"
@@ -634,8 +634,13 @@ func (b *statefulBubble) updateConfirm(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return b, tea.Quit
 		case key.Matches(msg, b.keymap.confirm):
 			chapters := lo.Keys(b.selectedChapters)
-			slices.SortFunc(chapters, func(a, b *source.Chapter) bool {
-				return a.Index > b.Index
+			slices.SortFunc(chapters, func(a, b *source.Chapter) int {
+				if a.Index > b.Index {
+					return -1
+				} else if a.Index < b.Index {
+					return 1
+				}
+				return 0
 			})
 
 			for _, chapter := range chapters {

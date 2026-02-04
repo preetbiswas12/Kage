@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/network"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/log"
+	"github.com/preetbiswas12/Kage/network"
+	"github.com/preetbiswas12/Kage/util"
 	_ "image/gif"
 	"io"
 	"net/http"
@@ -57,20 +57,20 @@ func (p *Page) Download() error {
 
 	resp, err := network.Client.Do(req)
 	if err != nil {
-		log.Error(err)
+		log.Errorf("Network error downloading page #%d: %v", p.Index, err)
 		return err
 	}
 
 	defer util.Ignore(resp.Body.Close)
 
 	if resp.StatusCode != http.StatusOK {
-		err = errors.New("http error: " + resp.Status)
+		err = fmt.Errorf("http error for page #%d: %s", p.Index, resp.Status)
 		log.Error(err)
 		return err
 	}
 
 	if resp.ContentLength == 0 {
-		err = errors.New("http error: nothing was returned")
+		err = fmt.Errorf("http error for page #%d: nothing was returned", p.Index)
 		log.Error(err)
 		return err
 	}
@@ -83,21 +83,23 @@ func (p *Page) Download() error {
 	// if the content length is unknown
 	if resp.ContentLength == -1 {
 		buf, err = io.ReadAll(resp.Body)
+		if err != nil {
+			return fmt.Errorf("failed to read page #%d body: %w", p.Index, err)
+		}
 		contentLength = int64(len(buf))
 	} else {
 		contentLength = resp.ContentLength
 		buf = make([]byte, resp.ContentLength)
 		_, err = io.ReadFull(resp.Body, buf)
-	}
-
-	if err != nil {
-		return err
+		if err != nil {
+			return fmt.Errorf("failed to read page #%d body (expected %d bytes): %w", p.Index, resp.ContentLength, err)
+		}
 	}
 
 	p.Contents = bytes.NewBuffer(buf)
 	p.Size = uint64(util.Max(contentLength, 0))
 
-	log.Tracef("Page #%d downloaded", p.Index)
+	log.Tracef("Page #%d downloaded successfully (%d bytes)", p.Index, p.Size)
 	return nil
 }
 

@@ -1,8 +1,8 @@
 package plain
 
 import (
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/source"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/source"
 	"io"
 	"os"
 	"path/filepath"

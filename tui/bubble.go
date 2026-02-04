@@ -9,15 +9,15 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/history"
-	"github.com/metafates/mangal/installer"
-	key2 "github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/anilist"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/history"
+	"github.com/preetbiswas12/Kage/installer"
+	key2 "github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/samber/lo"
 	"github.com/samber/mo"
 	"github.com/spf13/viper"
@@ -296,10 +296,10 @@ func (b *statefulBubble) loadProviders() tea.Cmd {
 			internal: p,
 		})
 	}
-	slices.SortFunc(items, func(a, b list.Item) bool {
+	slices.SortFunc(items, func(a, b list.Item) int {
 		// temporary workaround for placing mangadex second because it is not stable for now
 		// but, you know, there is nothing more permanent than a temporary solution
-		return strings.Compare(a.FilterValue(), b.FilterValue()) > 0
+		return -strings.Compare(a.FilterValue(), b.FilterValue())
 	})
 
 	var customItems []list.Item
@@ -308,8 +308,8 @@ func (b *statefulBubble) loadProviders() tea.Cmd {
 			internal: p,
 		})
 	}
-	slices.SortFunc(customItems, func(a, b list.Item) bool {
-		return strings.Compare(a.FilterValue(), b.FilterValue()) < 0
+	slices.SortFunc(customItems, func(a, b list.Item) int {
+		return strings.Compare(a.FilterValue(), b.FilterValue())
 	})
 
 	// built-in providers should come first
@@ -323,11 +323,11 @@ func (b *statefulBubble) loadHistory() (tea.Cmd, error) {
 	}
 
 	chapters := lo.Values(saved)
-	slices.SortFunc(chapters, func(a, b *history.SavedChapter) bool {
+	slices.SortFunc(chapters, func(a, b *history.SavedChapter) int {
 		if a.MangaName == b.MangaName {
-			return a.Name < b.Name
+			return strings.Compare(a.Name, b.Name)
 		}
-		return a.MangaName < b.MangaName
+		return strings.Compare(a.MangaName, b.MangaName)
 	})
 
 	var items []list.Item

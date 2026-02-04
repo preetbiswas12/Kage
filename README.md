@@ -1,5 +1,5 @@
 <h1 align="center">
-<strong>Mangal 4 ☄️</strong>
+<strong>Kage 4 ☄️</strong>
 </h1>
 
 <p align="center">
@@ -14,19 +14,19 @@
 </h3>
 
 <p align="center">
-    <img alt="Mangal 4 TUI" src="assets/tui.gif">
+    <img alt="Kage 4 TUI" src="assets/tui.gif">
 </p>
 
 > [!CAUTION]
-> As of April 2025, Mangal is no longer maintained. I am incredibly grateful to everyone who used it, contributed, or gave feedback along the way - thank you! Unfortunately, I just don't have the time to keep it going right now. That said, it's open source, so you're more than welcome to fork it, build on it, or maintain your own version. I might return to it someday, but for now, I don't recommend using it as-is - running unmaintained software can introduce security risks.
+> As of April 2025, Kage is no longer maintained. I am incredibly grateful to everyone who used it, contributed, or gave feedback along the way - thank you! Unfortunately, I just don't have the time to keep it going right now. That said, it's open source, so you're more than welcome to fork it, build on it, or maintain your own version. I might return to it someday, but for now, I don't recommend using it as-is - running unmaintained software can introduce security risks.
 
 ## Try it!
 
 ```shell
-curl -sSL mangal.metafates.one/run | sh
+curl -sSL kage.metafates.one/run | sh
 ```
 
-> **Note** This script does not install anything, it just downloads, verifies and runs Mangal.
+> **Note** This script does not install anything, it just downloads, verifies and runs Kage.
 > Not available on Windows.
 
 ## Table of contents
@@ -43,27 +43,27 @@ curl -sSL mangal.metafates.one/run | sh
 ## Features
 
 - __Lua Scrapers!!!__ You can add any source you want by creating your own _(or using someone's else)_ scraper with
-  __Lua 5.1__. See [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers)
+  __Lua 5.1__. See [kage-scrapers repository](https://github.com/metafates/kage-scrapers)
 - __4 Built-in sources__ - [Mangadex](https://mangadex.org), [Manganelo](https://m.manganelo.com/wwww), [Manganato](https://manganato.com) & [Mangapill](https://mangapill.com)
 - __Download & Read Manga__ - I mean, it would be strange if you couldn't, right?
-- __Caching__ - Mangal will cache as much data as possible, so you don't have to wait for it to download the same data over and over again. 
+- __Caching__ - Kage will cache as much data as possible, so you don't have to wait for it to download the same data over and over again. 
 - __4 Different export formats__ - PDF, CBZ, ZIP and plain images
 - __TUI ✨__ - You already know how to use it! (ﾉ>ω<)ﾉ :｡･::･ﾟ’★,｡･:･ﾟ’☆
-- __Scriptable__ - You can use Mangal in your scripts, it's just a CLI app after all. [Examples](https://github.com/metafates/mangal/wiki/Inline-mode)
+- __Scriptable__ - You can use Kage in your scripts, it's just a CLI app after all. [Examples](https://github.com/metafates/kage/wiki/Inline-mode)
 - __History__ - Resume your reading from where you left off!
 - __Fast?__ - YES.
 - __Monolith__ - ZERO runtime dependencies. Even Lua is built in. Easy to install and use.
 - __Cross-Platform__ - Linux, macOS, Windows, Termux, even your toaster. (¬‿¬ )
-- __Anilist integration__ - Mangal will collect additional data from Anilist and use it to improve your reading experience. It can also sync your progress!
+- __Anilist integration__ - Kage will collect additional data from Anilist and use it to improve your reading experience. It can also sync your progress!
 
 ## Installation
 
 ### Script (Linux, MacOS, Termux)
 
-Install using [this shell script](https://github.com/metafates/mangal/blob/main/scripts/install)
+Install using [this shell script](https://github.com/metafates/kage/blob/main/scripts/install)
 
 ```shell
-curl -sSL mangal.metafates.one/install | sh
+curl -sSL kage.metafates.one/install | sh
 ```
 
 This script will automatically detect OS & Distro and use the best option available.
@@ -71,15 +71,15 @@ For example, on macOS it will try to use Homebrew, on Ubuntu it will install the
 
 ### Arch Linux
 
-[AUR package](https://aur.archlinux.org/packages/mangal-bin) (maintained by [@balajsra](https://github.com/balajsra),
+[AUR package](https://aur.archlinux.org/packages/kage-bin) (maintained by [@balajsra](https://github.com/balajsra),
 thank you)
 
 ### MacOS
 
 Install using [Homebrew](https://brew.sh/)
 
-    brew tap metafates/mangal
-    brew install mangal
+    brew tap metafates/kage
+    brew install kage
 
 ### Windows
 
@@ -87,14 +87,14 @@ Install using [Scoop](https://scoop.sh/) (thanks to [@SonaliBendre](https://gith
 the official bucket)
 
     scoop bucket add extras
-    scoop install mangal
+    scoop install kage
 
 ### Termux
 
 Thanks to [@T-Dynamos](https://github.com/T-Dynamos) for adding it to the [termux-packages](https://github.com/termux/termux-packages)
 
 ```shell
-pkg install mangal
+pkg install kage
 ```
 
 ### Gentoo
@@ -104,7 +104,7 @@ Install using third-party overlay [raiagent](https://github.com/leycec/raiagent)
 ```shell
 eselect repository enable raiagent
 emerge --sync raiagent
-emerge mangal
+emerge kage
 ```
 
 ### Nix 
@@ -113,22 +113,22 @@ Install using [Nix](https://nixos.org/download.html#download-nix). Thanks to [@b
 
 ```shell
 # NixOS
-nix-env -iA nixos.mangal
+nix-env -iA nixos.kage
 
 # Non NixOS
-nix-env -iA nixpkgs.mangal
+nix-env -iA nixpkgs.kage
 ```
 
 ### Docker
 
 Install using Docker. (thanks to [@ArabCoders](https://github.com/ArabCoders) for reference)
 
-    docker pull metafates/mangal
+    docker pull metafates/kage
 
 To run
 
 ```shell
-docker run --rm -ti -e "TERM=xterm-256color" -v $(PWD)/mangal/downloads:/downloads -v $(PWD)/mangal/config:/config metafates/mangal
+docker run --rm -ti -e "TERM=xterm-256color" -v $(PWD)/kage/downloads:/downloads -v $(PWD)/kage/config:/config metafates/kage
 ```
 
 ### From source
@@ -137,13 +137,13 @@ Visit this link to install [Go](https://go.dev/doc/install).
 
 Clone the repo
 ```shell
-git clone --depth 1 https://github.com/metafates/mangal.git
-cd mangal
+git clone --depth 1 https://github.com/metafates/kage.git
+cd kage
 ```
 
 GNU Make **(Recommended)**
 ```shell
-make install # if you want to compile and install mangal to path
+make install # if you want to compile and install kage to path
 make build # if you want to just build the binary
 ```
 
@@ -153,15 +153,15 @@ make build # if you want to just build the binary
 
 ```shell
 # To build
-go build -ldflags "-X 'github.com/metafates/mangal/constant.BuiltAt=$(date -u)' -X 'github.com/metafates/mangal/constant.BuiltBy=$(whoami)' -X 'github.com/metafates/mangal/constant.Revision=$(git rev-parse --short HEAD)' -s -w"
+go build -ldflags "-X 'github.com/metafates/kage/constant.BuiltAt=$(date -u)' -X 'github.com/metafates/kage/constant.BuiltBy=$(whoami)' -X 'github.com/metafates/kage/constant.Revision=$(git rev-parse --short HEAD)' -s -w"
 
 # To install
-go install -ldflags "-X 'github.com/metafates/mangal/constant.BuiltAt=$(date -u)' -X 'github.com/metafates/mangal/constant.BuiltBy=$(whoami)' -X 'github.com/metafates/mangal/constant.Revision=$(git rev-parse --short HEAD)' -s -w"
+go install -ldflags "-X 'github.com/metafates/kage/constant.BuiltAt=$(date -u)' -X 'github.com/metafates/kage/constant.BuiltBy=$(whoami)' -X 'github.com/metafates/kage/constant.Revision=$(git rev-parse --short HEAD)' -s -w"
 ```
 
 </details>
 
-If you want to build mangal for other architecture, say ARM, you'll have to set env variables `GOOS` and `GOARCH`
+If you want to build kage for other architecture, say ARM, you'll have to set env variables `GOOS` and `GOARCH`
 
 ```shell
 GOOS=linux GOARCH=arm64 make build
@@ -171,14 +171,14 @@ GOOS=linux GOARCH=arm64 make build
 
 ### Pre-compiled
 
-Download the pre-compiled binaries from the [releases page](https://github.com/metafates/mangal/releases/latest)
+Download the pre-compiled binaries from the [releases page](https://github.com/metafates/kage/releases/latest)
 and copy them to the desired location.
 
 ## Usage
 
 ### TUI
 
-Just run `mangal` and you're ready to go.
+Just run `kage` and you're ready to go.
 
 <details>
 <summary>Keybinds</summary>
@@ -208,14 +208,14 @@ Just run `mangal` and you're ready to go.
 ![TUI](https://user-images.githubusercontent.com/62389790/198830334-fd85c74f-cf3b-4e56-9262-5d62f7f829f4.png)
 
 > If you wonder what those icons mean - `D` stands for "downloaded", `*` shows that chapter is marked to be downloaded.
-> You can choose different icons, e.g. nerd font ones - just run mangal with `--icons nerd`.
+> You can choose different icons, e.g. nerd font ones - just run kage with `--icons nerd`.
 > Available options are `nerd`, `emoji`, `kaomoji` and `squares`
 
 ### Mini
 
 Mini mode tries to mimic [ani-cli](https://github.com/pystardust/ani-cli)
 
-To run: `mangal mini`
+To run: `kage mini`
 
 ![mini](https://user-images.githubusercontent.com/62389790/198830544-f2005ec4-c206-4fe0-bd08-862ffd08320e.png)
 
@@ -223,60 +223,60 @@ To run: `mangal mini`
 
 Inline mode is intended for use with other scripts.
 
-Type `mangal help inline` for more information.
+Type `kage help inline` for more information.
 
-See [Wiki](https://github.com/metafates/mangal/wiki/Inline-mode) for more examples.
+See [Wiki](https://github.com/metafates/kage/wiki/Inline-mode) for more examples.
 
 <p align="center">
-    <img alt="Mangal 4 Inline" src="assets/inline.gif">
+    <img alt="Kage 4 Inline" src="assets/inline.gif">
 </p>
 
 ### Other
 
-See `mangal help` for more information
+See `kage help` for more information
 
 ## Configuration
 
-Mangal uses [TOML](https://toml.io) format for configuration under the `mangal.toml` filename.
+Kage uses [TOML](https://toml.io) format for configuration under the `kage.toml` filename.
 Config path depends on the OS.
-To find yours, use `mangal where --config`.
-For example, on __Linux__ it would be `~/.config/mangal/mangal.toml`.
+To find yours, use `kage where --config`.
+For example, on __Linux__ it would be `~/.config/kage/kage.toml`.
 
 Use env variable `MANGAL_CONFIG_PATH` to set custom config path.
-> See `mangal env` to show all available env variables.
+> See `kage env` to show all available env variables.
 
 | Command               | Description                                      |
 |-----------------------|--------------------------------------------------|
-| `mangal config get`   | Get config value for specific key                |
-| `mangal config set`   | Set config value for specific key                |
-| `mangal config reset` | Reset config value for specific key              |
-| `mangal config info`  | List all config fields with description for each |
-| `mangal config write` | Write current config to a file                   |
+| `kage config get`   | Get config value for specific key                |
+| `kage config set`   | Set config value for specific key                |
+| `kage config reset` | Reset config value for specific key              |
+| `kage config info`  | List all config fields with description for each |
+| `kage config write` | Write current config to a file                   |
 
 ## Custom scrapers
 
 TLDR; To browse and install a custom scraper
-from [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers) run
+from [kage-scrapers repository](https://github.com/metafates/kage-scrapers) run
 
-    mangal sources install
+    kage sources install
 
-Mangal has a Lua5.1 VM built-in + some useful libraries, such as headless chrome, http client, html parser and so on...
+Kage has a Lua5.1 VM built-in + some useful libraries, such as headless chrome, http client, html parser and so on...
 
-Check the [defined modules](https://github.com/metafates/mangal-lua-libs) for more information.
+Check the [defined modules](https://github.com/metafates/kage-lua-libs) for more information.
 
-For scrapers examples, check the [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers)
+For scrapers examples, check the [kage-scrapers repository](https://github.com/metafates/kage-scrapers)
 
 ### Creating a custom scraper
 
-This command will create `example.lua` file in the `mangal where --sources` directory.
+This command will create `example.lua` file in the `kage where --sources` directory.
 
-    mangal sources gen --name example --url https://example.com
+    kage sources gen --name example --url https://example.com
 
 Open the file and edit it as you wish.
 Take a look at the comments for more information.
-See [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers) for examples.
+See [kage-scrapers repository](https://github.com/metafates/kage-scrapers) for examples.
 
-You can test it by running `mangal run <filepath>`
+You can test it by running `kage run <filepath>`
 
 It should automatically appear in the list of available scrapers.
 
@@ -284,18 +284,18 @@ It should automatically appear in the list of available scrapers.
 
 ## Anilist
 
-Mangal also supports integration with anilist.
+Kage also supports integration with anilist.
 
 Besides fetching metadata for each manga when downloading,
-mangal can also mark chapters as read on your Anilsit profile when you read them inside mangal.
+kage can also mark chapters as read on your Anilsit profile when you read them inside kage.
 
-For more information see [wiki](https://github.com/metafates/mangal/wiki/Anilist-Integration)
+For more information see [wiki](https://github.com/metafates/kage/wiki/Anilist-Integration)
 
 ## Architecture
 
-### How does Mangal connect to manga websites?
+### How does Kage connect to manga websites?
 
-Mangal uses a sophisticated multi-layered architecture to connect to manga websites:
+Kage uses a sophisticated multi-layered architecture to connect to manga websites:
 
 - **HTTP Client Layer**: Optimized HTTP client with connection pooling, configured for high concurrency (up to 200 connections per host)
 - **Provider System**: Supports both built-in (Go) and custom (Lua) providers for flexibility
@@ -313,9 +313,9 @@ For a detailed explanation of the connection architecture, see [CONNECTION_ARCHI
 
 ## Honorable mentions
 
-### Projects using mangal
+### Projects using kage
 
-- [kaizoku](https://github.com/oae/kaizoku) - Self-hosted manga downloader with mangal as its core 🚀
+- [kaizoku](https://github.com/oae/kaizoku) - Self-hosted manga downloader with kage as its core 🚀
 
 ### Similar Projects
 
@@ -329,7 +329,7 @@ For a detailed explanation of the connection architecture, see [CONNECTION_ARCHI
 ### Libraries
 
 - [bubbletea](https://github.com/charmbracelet/bubbletea), [bubbles](https://github.com/charmbracelet/bubbles)
-  & [lipgloss](https://github.com/charmbracelet/lipgloss) - Made mangal shine! The best TUI libraries ever ✨
+  & [lipgloss](https://github.com/charmbracelet/lipgloss) - Made kage shine! The best TUI libraries ever ✨
 - [gopher-lua](https://github.com/yuin/gopher-lua) - Made it possible to write custom scrapers with Lua ❤️
 - [cobra](https://github.com/spf13/cobra) and [viper](https://github.com/spf13/viper) - Responsible for the awesome CLI
   & config experience 🛠
@@ -341,8 +341,8 @@ For a detailed explanation of the connection architecture, see [CONNECTION_ARCHI
 And of course, thanks to all contributors! You are awesome!
 
 <p align="center">
-<a href="https://github.com/metafates/mangal/graphs/contributors">
-  <img alt="Contributors" src="https://contrib.rocks/image?repo=metafates/mangal" />
+<a href="https://github.com/metafates/kage/graphs/contributors">
+  <img alt="Contributors" src="https://contrib.rocks/image?repo=metafates/kage" />
 </a>
 </p>
 
@@ -354,7 +354,7 @@ please consider starring it, that would mean a lot to me ⭐
 </p>
 
 <p align="center">
-<a href="https://star-history.com/#metafates/mangal&Date">
-<img alt="Star History" src="https://api.star-history.com/svg?repos=metafates/mangal&type=Date"/>
+<a href="https://star-history.com/#metafates/kage&Date">
+<img alt="Star History" src="https://api.star-history.com/svg?repos=metafates/kage&type=Date"/>
 </a>
 </p>

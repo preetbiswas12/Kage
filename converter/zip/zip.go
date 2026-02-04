@@ -2,9 +2,9 @@ package zip
 
 import (
 	"archive/zip"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/source"
+	"github.com/preetbiswas12/Kage/util"
 	"io"
 	"time"
 )

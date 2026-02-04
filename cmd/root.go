@@ -3,18 +3,18 @@ package cmd
 import (
 	"fmt"
 	cc "github.com/ivanpirog/coloredcobra"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/converter"
-	"github.com/metafates/mangal/icon"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/tui"
-	"github.com/metafates/mangal/util"
-	"github.com/metafates/mangal/version"
-	"github.com/metafates/mangal/where"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/converter"
+	"github.com/preetbiswas12/Kage/icon"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/log"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/tui"
+	"github.com/preetbiswas12/Kage/util"
+	"github.com/preetbiswas12/Kage/version"
+	"github.com/preetbiswas12/Kage/where"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -72,10 +72,12 @@ func init() {
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   constant.Mangal,
-	Short: "The ultimate manga downloader",
+	Use:   constant.Kage,
+	Short: "The most advanced manga downloader",
 	Long: constant.AsciiArtLogo + "\n" +
-		style.New().Italic(true).Foreground(color.HiRed).Render("    - The ultimate cli manga downloader"),
+		style.New().Italic(true).Foreground(color.HiRed).Render("    - The most advanced CLI manga downloader\n\n") +
+		style.Faint("Search, download, and read manga from your terminal.\n") +
+		style.Faint("Supports multiple sources, formats, and Anilist integration."),
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if _, err := converter.Get(viper.GetString(key.FormatsUse)); err != nil {
 			handleErr(err)

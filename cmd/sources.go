@@ -2,11 +2,11 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/tui"
-	"github.com/metafates/mangal/util"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/key"
+	"github.com/preetbiswas12/Kage/tui"
+	"github.com/preetbiswas12/Kage/util"
 	"github.com/spf13/viper"
 	"os"
 	"os/user"
@@ -14,11 +14,11 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/icon"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/where"
+	"github.com/preetbiswas12/Kage/filesystem"
+	"github.com/preetbiswas12/Kage/icon"
+	"github.com/preetbiswas12/Kage/provider"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/where"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 )
@@ -29,7 +29,8 @@ func init() {
 
 var sourcesCmd = &cobra.Command{
 	Use:   "sources",
-	Short: "Manage sources",
+	Short: "Manage manga sources",
+	Long:  `Install, remove, generate and list manga sources (scrapers) for downloading manga from various websites.`,
 }
 
 func init() {
@@ -45,7 +46,8 @@ func init() {
 
 var sourcesListCmd = &cobra.Command{
 	Use:   "list",
-	Short: "List an available sources",
+	Short: "List all available manga sources",
+	Long:  `Display all built-in and custom manga sources that can be used to search and download manga.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		printHeader := !lo.Must(cmd.Flags().GetBool("raw"))
 		headerStyle := style.New().Foreground(color.HiBlue).Bold(true).Render
@@ -107,7 +109,13 @@ func init() {
 
 var sourcesRemoveCmd = &cobra.Command{
 	Use:   "remove",
-	Short: "Remove a custom source",
+	Short: "Remove custom manga sources",
+	Long:  `Remove one or more custom manga sources (scrapers) from your installation.`,
+	Example: `  # Remove a single source
+  mangal sources remove -n mangakakalot
+
+  # Remove multiple sources
+  mangal sources remove -n source1 -n source2`,
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, name := range lo.Must(cmd.Flags().GetStringArray("name")) {
 			path := filepath.Join(where.Sources(), name+provider.CustomProviderExtension)
@@ -125,7 +133,7 @@ var sourcesInstallCmd = &cobra.Command{
 	Use:   "install",
 	Short: "Browse and install custom scrapers",
 	Long: `Browse and install custom scrapers from official GitHub repo.
-https://github.com/metafates/mangal-scrapers`,
+https://github.com/preetbiswas12/Kage-scrapers`,
 	Run: func(cmd *cobra.Command, args []string) {
 		handleErr(tui.Run(&tui.Options{Install: true}))
 	},
@@ -143,8 +151,17 @@ func init() {
 
 var sourcesGenCmd = &cobra.Command{
 	Use:   "gen",
-	Short: "Generate a new lua source",
-	Long:  `Generate a new lua source.`,
+	Short: "Generate a new Lua scraper template",
+	Long: `Generate a template for creating a custom manga scraper in Lua.
+
+This command creates a new Lua file with boilerplate code and comments
+to help you build your own manga source scraper. The generated template
+includes function stubs for searching, listing chapters, and fetching pages.`,
+	Example: `  # Generate a scraper for a specific site
+  mangal sources gen -n "My Site" -u https://example.com
+
+  # The generated file will be saved to your sources directory
+  mangal sources gen -n mangasite -u https://mangasite.com`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.SetOut(os.Stdout)
 
