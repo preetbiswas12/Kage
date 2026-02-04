@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/preetbiswas12/Kage/filesystem"
 	"github.com/preetbiswas12/Kage/icon"
 	"github.com/preetbiswas12/Kage/util"
@@ -41,7 +42,29 @@ func init() {
 var clearCmd = &cobra.Command{
 	Use:   "clear",
 	Short: "Clear cached files and data",
-	Long:  `Remove cached data, history, and other temporary files to free up space or reset state.`,
+	Long: `Remove cached data, history, and other temporary files to free up space or reset state.
+
+This command helps manage your local Kage data by removing:
+  • Cache files (downloaded manga, images)
+  • Reading history (chapter progress)
+  • Anilist bindings (manga-to-Anilist mappings)
+  • Queries history (search history)
+
+FLAGS:
+  -c, --cache     Clear downloaded manga cache
+  -s, --history   Clear reading history
+  -a, --anilist   Clear Anilist bindings
+  -q, --queries   Clear search query history
+
+EXAMPLES:
+  # Clear all caches (use without flags)
+  kage clear --cache --history --anilist --queries
+  
+  # Clear only cache
+  kage clear --cache
+  
+  # Clear reading history
+  kage clear --history`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var anyCleared bool
 

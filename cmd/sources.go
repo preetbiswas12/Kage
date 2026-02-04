@@ -2,17 +2,18 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"os/user"
+	"path/filepath"
+	"strings"
+	"text/template"
+
 	"github.com/preetbiswas12/Kage/color"
 	"github.com/preetbiswas12/Kage/constant"
 	"github.com/preetbiswas12/Kage/key"
 	"github.com/preetbiswas12/Kage/tui"
 	"github.com/preetbiswas12/Kage/util"
 	"github.com/spf13/viper"
-	"os"
-	"os/user"
-	"path/filepath"
-	"strings"
-	"text/template"
 
 	"github.com/preetbiswas12/Kage/filesystem"
 	"github.com/preetbiswas12/Kage/icon"
@@ -29,8 +30,20 @@ func init() {
 
 var sourcesCmd = &cobra.Command{
 	Use:   "sources",
-	Short: "Manage manga sources",
-	Long:  `Install, remove, generate and list manga sources (scrapers) for downloading manga from various websites.`,
+	Short: "Manage manga sources (search providers)",
+	Long: `Install, remove, generate and list manga sources (scrapers) for downloading manga.
+
+Built-in sources:
+  • Mangadex (API-based) - Fast, reliable, comprehensive
+  • Mangapill (HTML scraping) - Alternative source
+
+Custom sources can be written in Lua for additional manga websites.
+
+SUBCOMMANDS:
+  sources list    Show all available sources
+  sources install Browse and install custom Lua scrapers
+  sources remove  Remove custom sources
+  sources gen     Generate a new Lua scraper template`,
 }
 
 func init() {
@@ -47,7 +60,15 @@ func init() {
 var sourcesListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all available manga sources",
-	Long:  `Display all built-in and custom manga sources that can be used to search and download manga.`,
+	Long: `Display all built-in and custom manga sources available for searching and downloading.
+
+Built-in sources are pre-installed and always available.
+Custom sources are Lua-based scrapers that can be installed separately.
+
+FLAGS:
+  -b, --builtin    Show only built-in sources
+  -c, --custom     Show only custom sources
+  -r, --raw        Omit section headers`,
 	Run: func(cmd *cobra.Command, args []string) {
 		printHeader := !lo.Must(cmd.Flags().GetBool("raw"))
 		headerStyle := style.New().Foreground(color.HiBlue).Bold(true).Render

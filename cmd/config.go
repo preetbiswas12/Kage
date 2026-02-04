@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/preetbiswas12/Kage/color"
 	"os"
 	"path/filepath"
 	"sort"
 	"strconv"
+
+	"github.com/preetbiswas12/Kage/color"
 
 	levenshtein "github.com/ka-weihe/fast-levenshtein"
 	"github.com/preetbiswas12/Kage/config"
@@ -46,7 +47,38 @@ func init() {
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Manage configuration settings",
-	Long:  `View, modify, and reset ` + constant.Kage + ` configuration options. Use subcommands to get info, set values, or write config to file.`,
+	Long: `View, modify, and reset Kage configuration options.
+
+Configuration is stored in a TOML file and controls behavior like:
+  • Download directory
+  • Default sources
+  • Output formats
+  • Display icons
+  • History saving
+  • And more!
+
+SUBCOMMANDS:
+  config info      Show detailed configuration information
+  config get       Get a configuration value
+  config set       Set a configuration value
+  config reset     Reset configuration to defaults
+  config open      Open config file in default editor
+
+EXAMPLES:
+  # Show all config options
+  kage config info
+  
+  # Get a specific setting
+  kage config get downloads-dir
+  
+  # Set a setting
+  kage config set default-source Mangadex
+  
+  # Reset to defaults
+  kage config reset
+  
+  # Edit config file directly
+  kage config open`,
 }
 
 func init() {
@@ -60,8 +92,12 @@ func init() {
 
 var configInfoCmd = &cobra.Command{
 	Use:   "info",
-	Short: "Show information about configuration fields",
-	Long:  `Display detailed information about each configuration field including its key, type, default value, and description.`,
+	Short: "Show configuration field information",
+	Long: `Display detailed information about each configuration field including its key, type, default value, and description.
+
+FLAGS:
+  -k, --key STRING    Show info for specific keys (comma-separated)
+  -j, --json          Output as JSON instead of formatted text`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			keys   = lo.Must(cmd.Flags().GetStringSlice("key"))

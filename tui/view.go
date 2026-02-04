@@ -2,21 +2,25 @@ package tui
 
 import (
 	"fmt"
+	"math/rand"
+	"strconv"
+	"strings"
+
 	"github.com/charmbracelet/lipgloss"
+	"github.com/muesli/reflow/wrap"
 	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/constant"
 	"github.com/preetbiswas12/Kage/icon"
 	"github.com/preetbiswas12/Kage/key"
 	"github.com/preetbiswas12/Kage/style"
 	"github.com/preetbiswas12/Kage/util"
-	"github.com/muesli/reflow/wrap"
 	"github.com/spf13/viper"
-	"math/rand"
-	"strconv"
-	"strings"
 )
 
 func (b *statefulBubble) View() string {
 	switch b.state {
+	case splashState:
+		return b.viewSplash()
 	case scrapersInstallState:
 		return b.viewScrapersInstallState()
 	case loadingState:
@@ -46,6 +50,22 @@ func (b *statefulBubble) View() string {
 	}
 
 	panic("unknown state")
+}
+
+func (b *statefulBubble) viewSplash() string {
+	progressPercent := b.progressC.Percent()
+
+	lines := []string{
+		"",
+		constant.AsciiArtLogo,
+		"",
+		"",
+		b.progressC.ViewAs(progressPercent),
+		"",
+		fmt.Sprintf("Loading sources... %s", b.progressStatus),
+	}
+
+	return strings.Join(lines, "\n")
 }
 
 func (b *statefulBubble) viewLoading() string {

@@ -1,6 +1,9 @@
 package cmd
 
 import (
+	"os"
+	"strings"
+
 	"github.com/preetbiswas12/Kage/color"
 	"github.com/preetbiswas12/Kage/config"
 	"github.com/preetbiswas12/Kage/constant"
@@ -9,8 +12,6 @@ import (
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/slices"
-	"os"
-	"strings"
 )
 
 func init() {
@@ -24,19 +25,32 @@ func init() {
 var envCmd = &cobra.Command{
 	Use:   "env",
 	Short: "List available environment variables",
-	Long: `Display all environment variables that can be used to configure mangal.
+	Long: `Display all environment variables that can be used to configure Kage.
 
-Environment variables provide an alternative way to configure mangal
-without modifying the configuration file. They are especially useful
-in containerized environments or CI/CD pipelines.`,
-	Example: `  # Show all available environment variables
-  mangal env
+Environment variables provide an alternative to configuration files and are
+especially useful in containerized environments or CI/CD pipelines.
 
-  # Show only variables that are currently set
-  mangal env --set-only
+Each variable controls a specific setting like download directory, default source,
+output format, etc.
 
+FLAGS:
+  -s, --set-only     Show only variables that are currently set
+  -u, --unset-only   Show only variables that are not set
+
+EXAMPLES:
+  # Show all available environment variables
+  kage env
+  
+  # Show only set variables
+  kage env --set-only
+  
   # Show only unset variables
-  mangal env --unset-only`,
+  kage env --unset-only
+  
+  # Use environment variables
+  export KAGE_DOWNLOAD_DIR="$HOME/Manga"
+  export KAGE_DEFAULT_SOURCE="Mangadex"
+  kage inline -q "Death Note" -d`,
 	Run: func(cmd *cobra.Command, args []string) {
 		setOnly := lo.Must(cmd.Flags().GetBool("set-only"))
 		unsetOnly := lo.Must(cmd.Flags().GetBool("unset-only"))

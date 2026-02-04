@@ -2,11 +2,12 @@ package mangapill
 
 import (
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
-	"github.com/preetbiswas12/Kage/provider/generic"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/preetbiswas12/Kage/provider/generic"
 )
 
 var Config = &generic.Configuration{
@@ -23,7 +24,7 @@ var Config = &generic.Configuration{
 		return fmt.Sprintf(template, url.QueryEscape(query))
 	},
 	MangaExtractor: &generic.Extractor{
-		Selector: "body > div.container.py-3 > div.my-3.grid.justify-end.gap-3.grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-5 > div",
+		Selector: "div.my-3.grid.justify-end.gap-3.grid-cols-2 > div",
 		Name: func(selection *goquery.Selection) string {
 			return strings.TrimSpace(selection.Find("div a div.leading-tight").Text())
 		},

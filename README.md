@@ -44,7 +44,7 @@ curl -sSL kage.metafates.one/run | sh
 
 - __Lua Scrapers!!!__ You can add any source you want by creating your own _(or using someone's else)_ scraper with
   __Lua 5.1__. See [kage-scrapers repository](https://github.com/metafates/kage-scrapers)
-- __4 Built-in sources__ - [Mangadex](https://mangadex.org), [Manganelo](https://m.manganelo.com/wwww), [Manganato](https://manganato.com) & [Mangapill](https://mangapill.com)
+- __2 Built-in sources__ - [Mangadex](https://mangadex.org) & [Mangapill](https://mangapill.com)
 - __Download & Read Manga__ - I mean, it would be strange if you couldn't, right?
 - __Caching__ - Kage will cache as much data as possible, so you don't have to wait for it to download the same data over and over again. 
 - __4 Different export formats__ - PDF, CBZ, ZIP and plain images
@@ -91,11 +91,33 @@ the official bucket)
 
 ### Termux
 
+#### Option 1: Install from source (easiest)
+
+```shell
+# Clone the repository
+git clone https://github.com/preetbiswas12/Kage.git
+cd Kage/mangal
+
+# Run the installer script
+bash termux-install.sh
+```
+
+Then use it:
+```shell
+kage sources list
+kage search "Death Note"
+kage download "Death Note"
+```
+
+#### Option 2: Using the official Termux packages
+
 Thanks to [@T-Dynamos](https://github.com/T-Dynamos) for adding it to the [termux-packages](https://github.com/termux/termux-packages)
 
 ```shell
 pkg install kage
 ```
+
+> **Note:** For additional setup and repository creation, see [TERMUX_INSTALLATION.md](TERMUX_INSTALLATION.md)
 
 ### Gentoo
 

@@ -23,7 +23,7 @@ func Run(options *Options) error {
 
 		bubble.newState(historyState)
 	} else {
-		bubble.newState(sourcesState)
+		bubble.newState(splashState)
 	}
 
 	return tea.NewProgram(bubble, tea.WithAltScreen()).Start()

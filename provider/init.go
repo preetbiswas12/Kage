@@ -3,8 +3,6 @@ package provider
 import (
 	"github.com/preetbiswas12/Kage/provider/generic"
 	"github.com/preetbiswas12/Kage/provider/mangadex"
-	"github.com/preetbiswas12/Kage/provider/manganato"
-	"github.com/preetbiswas12/Kage/provider/manganelo"
 	"github.com/preetbiswas12/Kage/provider/mangapill"
 	"github.com/preetbiswas12/Kage/source"
 )
@@ -23,8 +21,6 @@ var builtinProviders = []*Provider{
 
 func init() {
 	for _, conf := range []*generic.Configuration{
-		manganelo.Config,
-		manganato.Config,
 		mangapill.Config,
 	} {
 		conf := conf

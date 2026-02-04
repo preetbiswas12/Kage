@@ -2,6 +2,8 @@ package tui
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/bubbles/progress"
@@ -21,7 +23,6 @@ import (
 	"github.com/samber/mo"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"
-	"time"
 )
 
 func (b *statefulBubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -101,6 +102,8 @@ func (b *statefulBubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 
 	switch b.state {
+	case splashState:
+		return b.updateSplash(msg)
 	case loadingState:
 		return b.updateLoading(msg)
 	case historyState:
@@ -130,6 +133,33 @@ func (b *statefulBubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 
 	panic("unreachable")
+}
+
+func (b *statefulBubble) updateSplash(msg tea.Msg) (tea.Model, tea.Cmd) {
+	var cmd tea.Cmd
+
+	switch msg := msg.(type) {
+	case progress.FrameMsg:
+		model, progressCmd := b.progressC.Update(msg)
+		b.progressC = model.(progress.Model)
+
+		// Convert progress to percentage string
+		progress := b.progressC.Percent()
+		b.progressStatus = fmt.Sprintf("%.0f%%", progress*100)
+
+		// After progress reaches 100%, move to loading sources
+		if progress >= 1.0 {
+			providers := append([]*provider.Provider{}, provider.Builtins()...)
+			providers = append(providers, provider.Customs()...)
+
+			b.newState(loadingState)
+			return b, tea.Batch(b.startLoading(), b.loadSources(providers), b.waitForSourcesLoaded())
+		}
+
+		return b, progressCmd
+	}
+
+	return b, cmd
 }
 
 func (b *statefulBubble) updateScrapersInstall(msg tea.Msg) (tea.Model, tea.Cmd) {

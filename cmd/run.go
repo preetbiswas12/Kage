@@ -14,16 +14,26 @@ func init() {
 var runCmd = &cobra.Command{
 	Use:   "run [file]",
 	Short: "Execute a Lua script file",
-	Long: `Run Lua 5.1 scripts for testing custom scrapers or using mangal as a Lua interpreter.
+	Long: `Run Lua 5.1 scripts for testing custom scrapers or using Kage as a Lua interpreter.
 
-This command is useful for debugging custom manga sources before installation
-or for running standalone Lua scripts with mangal's built-in libraries.`,
-	Args:    cobra.ExactArgs(1),
-	Example: `  # Run a custom scraper for testing
-  mangal run ./my-scraper.lua
+This command is useful for:
+  • Testing custom manga scrapers before installation
+  • Debugging Lua scripts
+  • Running standalone scripts with Kage's libraries
+  • Developing new manga sources
 
+FLAGS:
+  -l, --lenient    Do not warn about missing functions
+
+EXAMPLES:
+  # Run a custom scraper for testing
+  kage run ./my-scraper.lua
+  
   # Run with lenient mode (skip function warnings)
-  mangal run -l ./test.lua`,
+  kage run -l ./test.lua
+  
+  # Test a new source before installation
+  kage run ./sources/mysource.lua`,
 	Run: func(cmd *cobra.Command, args []string) {
 		sourcePath := args[0]
 

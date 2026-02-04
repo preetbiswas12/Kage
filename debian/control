@@ -1,0 +1,9 @@
+Package: kage
+Version: 4.0.6
+Architecture: all
+Maintainer: Preet Biswas <preet@example.com>
+Homepage: https://github.com/preetbiswas12/Kage
+Description: Manga scraper and downloader CLI
+ Kage is a powerful CLI tool for searching and downloading manga
+ from multiple sources including Mangadex and Mangapill.
+Depends: ca-certificates

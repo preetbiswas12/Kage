@@ -4,6 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"os"
+	"path/filepath"
+	"reflect"
+	"strings"
+
 	"github.com/invopop/jsonschema"
 	"github.com/preetbiswas12/Kage/anilist"
 	"github.com/preetbiswas12/Kage/converter"
@@ -18,11 +24,6 @@ import (
 	"github.com/samber/mo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"io"
-	"os"
-	"path/filepath"
-	"reflect"
-	"strings"
 )
 
 func init() {
@@ -51,35 +52,81 @@ func init() {
 
 var inlineCmd = &cobra.Command{
 	Use:   "inline",
-	Short: "Run in inline mode for scripting",
+	Short: "Run in inline mode for scripting and automation",
 	Long: `Launch in inline mode for scripting and automation.
 
 This mode allows you to search, select, and download manga programmatically
-using command-line arguments, making it perfect for scripts and integrations.
+using command-line arguments. Perfect for scripts, batch processing, and getting
+JSON output for integration with other tools.
 
-Manga selectors:
-  first - first manga in the list
-  last - last manga in the list
-  [number] - select manga by index (starting from 0)
+FLAGS:
+  -q, --query STRING      Search query (required). Example: "Death Note"
+  -m, --manga STRING      Manga selector: first, last, [number], @[substring]@
+  -c, --chapter STRING    Chapter selector: first, last, all, [number], [from]-[to]
+  -d, --download          Download selected chapters
+  -F, --format STRING     Output format: pdf, cbz, zip, plain (default: pdf)
+  -S, --source STRING     Select source: Mangadex, Mangapill (default: all)
+  -j, --json              Output results as JSON (for scripting)
+  -H, --write-history     Save reading progress (default: true)
+  -o, --output STRING     Save JSON output to file
 
-Chapter selectors:
-  first - first chapter in the list
-  last - last chapter in the list
-  all - all chapters in the list
-  [number] - select chapter by index (starting from 0)
-  [from]-[to] - select chapters by range
-  @[substring]@ - select chapters by name substring
+MANGA SELECTORS:
+  first                   First manga in results
+  last                    Last manga in results
+  [number]                Select by index (0-based)
+  @[substring]@           Select by name substring
 
-When using the json flag, manga selector can be omitted to select all mangas.`,
+CHAPTER SELECTORS:
+  first                   First chapter
+  last                    Last chapter
+  all                     All chapters
+  [number]                Select by index
+  [from]-[to]             Range (e.g., 1-10)
+  @[substring]@           Select by name substring
+
+EXAMPLES:
+  # Search and get JSON
+  kage inline -q "Death Note" -j
+  
+  # Download first manga's chapters 1-10
+  kage inline -q "Death Note" -m first -c 1-10 -d
+  
+  # Download all chapters as PDF
+  kage inline -q "Jujutsu Kaisen" -m first -c all -d -F pdf
+  
+  # Download as CBZ (comic book format)
+  kage inline -q "One Piece" -m first -c all -d -F cbz
+  
+  # Use specific source for faster results
+  kage inline -q "Naruto" -S Mangadex -m first -c all -d
+  
+  # JSON output to file for processing
+  kage inline -q "Bleach" -j -o results.json
+  
+  # Parse JSON with jq
+  kage inline -q "One Piece" -j | jq '.result[0].mangal.chapters'
+
+When using -j flag, -m (manga selector) is optional - returns all results.
+
+For more examples: https://github.com/preetbiswas12/Kage/wiki/Inline-mode`,
 
 	Example: `  # Search and download first manga's first chapter
-  mangal inline -q "one piece" -m first -c first -d
+  kage inline -q "one piece" -m first -c first -d
 
   # Get JSON output for all search results
-  mangal inline -q "naruto" -j
+  kage inline -q "naruto" -j
 
-  # Download chapters 1-10 from first manga
-  mangal inline -q "bleach" -m first -c 1-10 -d
+  # Download chapters 1-10 from first manga as PDF
+  kage inline -q "bleach" -m first -c 1-10 -d -F pdf
+
+  # Download all chapters as CBZ (comic book archive)
+  kage inline -q "jujutsu kaisen" -m first -c all -d -F cbz
+
+  # Use specific source
+  kage inline -q "death note" -S Mangadex -m first -c all -d
+
+  # Parse JSON output with jq
+  kage inline -q "one piece" -j | jq '.result[0].mangal.chapters'
 
 More examples: https://github.com/preetbiswas12/Kage/wiki/Inline-mode`,
 	PreRun: func(cmd *cobra.Command, args []string) {

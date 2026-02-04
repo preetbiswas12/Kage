@@ -2,6 +2,8 @@ package tui
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/preetbiswas12/Kage/key"
@@ -10,6 +12,13 @@ import (
 )
 
 func (b *statefulBubble) Init() tea.Cmd {
+	if b.state == splashState {
+		// Start progress bar animation (5 second duration)
+		return tea.Batch(textinput.Blink, b.progressC.SetPercent(0.0), tea.Tick(time.Duration(5), func(t time.Time) tea.Msg {
+			return t
+		}))
+	}
+
 	if names := viper.GetStringSlice(key.DownloaderDefaultSources); b.state != historyState && len(names) != 0 {
 		var providers []*provider.Provider
 

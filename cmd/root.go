@@ -2,15 +2,16 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"strings"
+
 	cc "github.com/ivanpirog/coloredcobra"
-	"github.com/preetbiswas12/Kage/color"
 	"github.com/preetbiswas12/Kage/constant"
 	"github.com/preetbiswas12/Kage/converter"
 	"github.com/preetbiswas12/Kage/icon"
 	"github.com/preetbiswas12/Kage/key"
 	"github.com/preetbiswas12/Kage/log"
 	"github.com/preetbiswas12/Kage/provider"
-	"github.com/preetbiswas12/Kage/style"
 	"github.com/preetbiswas12/Kage/tui"
 	"github.com/preetbiswas12/Kage/util"
 	"github.com/preetbiswas12/Kage/version"
@@ -18,8 +19,6 @@ import (
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
-	"strings"
 )
 
 func init() {
@@ -75,9 +74,33 @@ var rootCmd = &cobra.Command{
 	Use:   constant.Kage,
 	Short: "The most advanced manga downloader",
 	Long: constant.AsciiArtLogo + "\n" +
-		style.New().Italic(true).Foreground(color.HiRed).Render("    - The most advanced CLI manga downloader\n\n") +
-		style.Faint("Search, download, and read manga from your terminal.\n") +
-		style.Faint("Supports multiple sources, formats, and Anilist integration."),
+		"    - The most advanced CLI manga downloader\n\n" +
+		"Search, download, and read manga from your terminal.\n" +
+		"Supports multiple sources, formats, and Anilist integration.\n\n" +
+		"Available Commands:\n\n" +
+		"  INTERACTIVE MODE:\n" +
+		"    kage               Open interactive TUI (search, browse, download, read)\n" +
+		"    kage -c            Continue reading from history\n\n" +
+		"  SCRIPTING & AUTOMATION:\n" +
+		"    kage inline        Run in inline mode for scripts and automation\n" +
+		"    kage run           Execute a Lua script file\n\n" +
+		"  SOURCES & CONFIGURATION:\n" +
+		"    kage sources       Manage manga sources (list, install, remove)\n" +
+		"    kage config        Manage configuration settings\n" +
+		"    kage env           List available environment variables\n\n" +
+		"  UTILITIES:\n" +
+		"    kage clear         Clear cached files (cache, history, queries)\n" +
+		"    kage where         Show paths to directories and files\n" +
+		"    kage version       Display version information\n" +
+		"    kage integration   Manage Anilist integration\n" +
+		"    kage completion    Generate shell completion script\n\n" +
+		"Examples:\n" +
+		"  kage                              # Interactive mode\n" +
+		"  kage inline -q 'Death Note' -j    # Search and get JSON\n" +
+		"  kage inline -q 'Death Note' -m first -c all -d    # Download all chapters\n" +
+		"  kage sources list                 # List available sources\n" +
+		"  kage where                        # Show download directory\n\n" +
+		"Use 'kage [command] --help' for more information about a command.",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if _, err := converter.Get(viper.GetString(key.FormatsUse)); err != nil {
 			handleErr(err)

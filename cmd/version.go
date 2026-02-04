@@ -1,14 +1,15 @@
 package cmd
 
 import (
-	"github.com/preetbiswas12/Kage/color"
-	"github.com/preetbiswas12/Kage/style"
-	"github.com/preetbiswas12/Kage/version"
-	"github.com/samber/lo"
 	"os"
 	"runtime"
 	"strings"
 	"text/template"
+
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/preetbiswas12/Kage/style"
+	"github.com/preetbiswas12/Kage/version"
+	"github.com/samber/lo"
 
 	"github.com/preetbiswas12/Kage/constant"
 	"github.com/spf13/cobra"
@@ -25,13 +26,22 @@ var versionCmd = &cobra.Command{
 	Short: "Display version information",
 	Long: `Display detailed version information including build details.
 
-Shows the current version, git commit, build date, platform,
-and checks for available updates.`,
-	Example: `  # Show full version information
-  mangal version
+Shows:
+  • Current version number
+  • Git commit hash
+  • Build date and time
+  • Platform (OS/Architecture)
+  • Available updates
 
+FLAGS:
+  -s, --short    Print only the version number (no additional info)
+
+EXAMPLES:
+  # Show full version information
+  kage version
+  
   # Show only version number
-  mangal version --short`,
+  kage version --short`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if lo.Must(cmd.Flags().GetBool("short")) {
 			cmd.Println(constant.Version)

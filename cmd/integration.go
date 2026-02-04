@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/preetbiswas12/Kage/icon"
 	"github.com/preetbiswas12/Kage/integration/anilist"
@@ -24,25 +25,39 @@ var integrationCmd = &cobra.Command{
 	Short: "Manage third-party service integrations",
 	Long: `Configure and manage integrations with external services like Anilist.
 
-Integrations allow mangal to sync your reading progress, fetch metadata,
-and provide enhanced features through connection with online services.`,
+Integrations allow Kage to sync your reading progress, fetch metadata,
+and provide enhanced features through connection with online services.
+
+Currently supported integrations:
+  • Anilist - Track manga and sync reading progress
+
+SUBCOMMANDS:
+  integration anilist    Configure Anilist integration`,
 }
 
 var integrationAnilistCmd = &cobra.Command{
 	Use:   "anilist",
-	Short: "Configure Anilist integration",
-	Long: `Set up integration with Anilist for manga tracking and metadata.
+	Short: "Configure Anilist manga tracking integration",
+	Long: `Set up integration with Anilist for manga tracking and metadata synchronization.
 
-Anilist integration enables automatic progress tracking, metadata fetching,
-and synchronization of your reading list with your Anilist account.
+Anilist integration enables:
+  • Automatic progress tracking
+  • Metadata fetching (title, cover, genres, etc.)
+  • Synchronization with Anilist account
+  • Enhanced manga information
+
+FLAGS:
+  -d, --disable    Disable Anilist integration
+
+EXAMPLES:
+  # Set up Anilist integration (interactive setup)
+  kage integration anilist
+  
+  # Disable Anilist integration
+  kage integration anilist --disable
 
 For detailed setup instructions, visit:
 https://github.com/preetbiswas12/Kage/wiki/Anilist-Integration`,
-	Example: `  # Set up Anilist integration
-  mangal integration anilist
-
-  # Disable Anilist integration
-  mangal integration anilist --disable`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if lo.Must(cmd.Flags().GetBool("disable")) {
 			viper.Set(key.AnilistEnable, false)

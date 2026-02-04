@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"github.com/preetbiswas12/Kage/color"
-	"github.com/samber/mo"
 	"os"
 
-	"github.com/preetbiswas12/Kage/constant"
+	"github.com/preetbiswas12/Kage/color"
+	"github.com/samber/mo"
+
 	"github.com/preetbiswas12/Kage/style"
 	"github.com/preetbiswas12/Kage/where"
 	"github.com/samber/lo"
@@ -55,8 +55,34 @@ func init() {
 
 var whereCmd = &cobra.Command{
 	Use:   "where",
-	Short: "Show paths to " + constant.Kage + " directories and files",
-	Long:  `Display the location of configuration, downloads, cache, sources, logs, and other ` + constant.Kage + ` related files and directories.`,
+	Short: "Show Kage directories and file locations",
+	Long: `Display the location of configuration, downloads, cache, sources, logs, and other Kage related files.
+
+This is useful for:
+  • Finding where manga is downloaded
+  • Locating configuration files
+  • Accessing cache directory
+  • Finding Lua scripts location
+  • Checking logs
+
+FLAGS:
+  -d, --downloads    Show downloads directory path
+  -c, --cache        Show cache directory path
+  -h, --history      Show history file path
+  -l, --logs         Show logs directory path
+  -b, --binds        Show Anilist binds file path
+  -q, --queries      Show queries history file path
+  -s, --sources      Show custom sources directory path
+
+EXAMPLES:
+  # Show all paths
+  kage where
+  
+  # Show only downloads directory
+  kage where --downloads
+  
+  # Show cache directory
+  kage where --cache`,
 	Run: func(cmd *cobra.Command, args []string) {
 		headerStyle := style.New().Bold(true).Foreground(color.HiPurple).Render
 
